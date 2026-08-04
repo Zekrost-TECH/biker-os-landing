@@ -1,7 +1,6 @@
 ---
+import WhatsAppCta from "./WhatsAppCta.astro";
 import { checkIcon, xIcon, pricingPlans } from "../data/pricing";
-
-const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
 ---
 
 <section class="pricing" id="precios">
@@ -35,7 +34,7 @@ const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
               <li class:list={{ unavailable: !feature.available }} set:html={`${feature.available ? checkIcon : xIcon} ${feature.text}`} />
             ))}
           </ul>
-          <a href={WHATSAPP_URL} class={plan.ctaClass} data-cta-whatsapp>{plan.cta}</a>
+          <WhatsAppCta label={plan.cta} className={plan.ctaClass} showIcon={false} />
         </div>
       ))}
     </div>

@@ -1,11 +1,10 @@
 ---
 import { Image } from "astro:assets";
+import WhatsAppCta from "./WhatsAppCta.astro";
 import homeImg from "../assets/screenshots/home.webp";
 import eventosImg from "../assets/screenshots/eventos.webp";
 import sosImg from "../assets/screenshots/sos.webp";
 import perfilImg from "../assets/screenshots/perfil.webp";
-
-const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
 ---
 
 <section class="hero" id="inicio">
@@ -32,15 +31,7 @@ const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
         Organiza rodadas, protege a tu manada con <strong>SOS en tiempo real</strong> y gestiona tu club como un profesional. Todo en una sola plataforma.
       </p>
       <div class="hero-ctas">
-        <a href={WHATSAPP_URL} class="btn btn-lg btn-whatsapp" data-cta-whatsapp>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/>
-            <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z"/>
-            <path d="M14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z"/>
-            <path d="M9.5 13.5c.5 1 1.5 1.5 2.5 1.5s2-.5 2.5-1.5"/>
-          </svg>
-          Crear mi club gratis
-        </a>
+        <WhatsAppCta label="Crear mi club gratis" className="btn btn-lg btn-whatsapp" iconSize={22} />
         <a href="#precios" class="btn btn-lg btn-secondary">Ver planes</a>
       </div>
       <div class="hero-trust">

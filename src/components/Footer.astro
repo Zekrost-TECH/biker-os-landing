@@ -1,5 +1,5 @@
 ---
-const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
+import { site } from "../data/site";
 ---
 
 <footer class="footer">
@@ -11,7 +11,7 @@ const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
         </a>
         <p>El sistema operativo para clubs de motos en Colombia. Organiza rodadas, protege a tu manada y construye el legado de tu club.</p>
         <div class="footer-social">
-          <a href={WHATSAPP_URL} aria-label="WhatsApp" data-cta-whatsapp>
+          <a href={site.whatsappUrl} aria-label="WhatsApp" data-cta-whatsapp>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/>
             </svg>
@@ -38,7 +38,7 @@ const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
       <div class="footer-col">
         <h4>Contacto</h4>
         <ul>
-          <li><a href={WHATSAPP_URL} data-cta-whatsapp>WhatsApp</a></li>
+          <li><a href={site.whatsappUrl} data-cta-whatsapp>WhatsApp</a></li>
           <li><a href="mailto:contacto@zekrost.com">contacto@zekrost.com</a></li>
           <li><a href="https://zekrost.com" target="_blank" rel="noopener">Zekrost</a></li>
         </ul>

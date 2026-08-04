@@ -1,5 +1,5 @@
 ---
-const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
+import WhatsAppCta from "./WhatsAppCta.astro";
 ---
 
 <div class="mobile-menu" id="mobileMenu">
@@ -7,6 +7,5 @@ const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
   <a href="#como-funciona" class="mobile-link">Cómo funciona</a>
   <a href="#precios" class="mobile-link">Precios</a>
   <a href="#faq" class="mobile-link">FAQ</a>
-  <a href={WHATSAPP_URL} class="btn btn-primary btn-whatsapp" data-cta-whatsapp>Crear mi club gratis</a>
+  <WhatsAppCta label="Crear mi club gratis" showIcon={false} />
 </div>
-
