@@ -1,0 +1,98 @@
+---
+import { Image } from "astro:assets";
+import homeImg from "../assets/screenshots/home.webp";
+import eventosImg from "../assets/screenshots/eventos.webp";
+import sosImg from "../assets/screenshots/sos.webp";
+import perfilImg from "../assets/screenshots/perfil.webp";
+---
+
+<section class="hero" id="inicio">
+  <div class="route-line">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0 60 C 150 120, 300 0, 450 60 S 750 120, 900 60 S 1050 0, 1200 60" />
+    </svg>
+  </div>
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+          <path d="M2 12h20"/>
+        </svg>
+        Hecho en Colombia para motociclistas
+      </div>
+      <h1>
+        El sistema operativo de tu
+        <span class="highlight">club de motos</span>
+      </h1>
+      <p>
+        Organiza rodadas, protege a tu manada con <strong>SOS en tiempo real</strong> y gestiona tu club como un profesional. Todo en una sola plataforma.
+      </p>
+      <div class="hero-ctas">
+        <a href="#" class="btn btn-lg btn-whatsapp" data-cta-whatsapp>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/>
+            <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z"/>
+            <path d="M14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z"/>
+            <path d="M9.5 13.5c.5 1 1.5 1.5 2.5 1.5s2-.5 2.5-1.5"/>
+          </svg>
+          Crear mi club gratis
+        </a>
+        <a href="#precios" class="btn btn-lg btn-secondary">Ver planes</a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+          </svg>
+          <span>21 días de prueba gratis</span>
+        </div>
+        <div class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+          </svg>
+          <span>Sin tarjeta de crédito</span>
+        </div>
+        <div class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+          </svg>
+          <span>Cancela cuando quieras</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="float-card float-card-sos">
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/>
+            <path d="M12 9v4"/>
+            <path d="M12 17h.01"/>
+          </svg>
+          SOS activado
+        </h4>
+        <p>Ubicación enviada a la manada</p>
+      </div>
+      <div class="float-card float-card-track">
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          GPS en vivo
+        </h4>
+        <p>3 pilotos cerca de ti</p>
+      </div>
+      <div class="phone" id="heroPhone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <Image src={homeImg} alt="Dashboard de BikerOS" class="active" loading="eager" fetchpriority="high" />
+          <Image src={eventosImg} alt="Lista de rodadas" loading="lazy" />
+          <Image src={sosImg} alt="Emergencia SOS" loading="lazy" />
+          <Image src={perfilImg} alt="Perfil del piloto" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+---
+import { marqueeItems } from "../data/marquee";
+---
+
+<div class="marquee">
+  <div class="marquee-track">
+    {marqueeItems.map((item) => (
+      <div class="marquee-item" set:html={`${item.icon} ${item.label}`} />
+    ))}
+    <!-- Duplicated for seamless loop -->
+    {marqueeItems.map((item) => (
+      <div class="marquee-item" set:html={`${item.icon} ${item.label}`} />
+    ))}
+  </div>
+</div>

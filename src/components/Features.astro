@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import { featureCards, largeFeature } from "../data/features";
+import loginImg from "../assets/screenshots/login.webp";
+
+const checkIcon =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+---
+
+<section class="features" id="funcionalidades">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Funcionalidades</div>
+      <h2>Todo lo que tu club necesita para rodar seguro y profesional</h2>
+      <p>Desde la app móvil para pilotos hasta el panel web para administradores. BikerOS conecta a toda la manada en un solo lugar.</p>
+    </div>
+    <div class="features-grid">
+      {featureCards.map((feature, index) => (
+        <div class={`feature-card reveal${index % 4 ? ` reveal-delay-${index % 4}` : ''}`}>
+          <div class={`feature-icon${feature.iconClass ? ` ${feature.iconClass}` : ''}`} set:html={feature.icon} />
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
+        </div>
+      ))}
+      <div class="feature-card large reveal reveal-delay-3">
+        <div class="feature-content">
+          <div class="feature-icon" set:html={largeFeature.icon} />
+          <h3>{largeFeature.title}</h3>
+          <p>{largeFeature.description}</p>
+          <ul class="showcase-list">
+            {largeFeature.listItems.map((item) => (
+              <li set:html={`${checkIcon} ${item}`} />
+            ))}
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <Image src={loginImg} alt="App BikerOS funcionando offline" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

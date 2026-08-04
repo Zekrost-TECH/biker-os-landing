@@ -1,0 +1,49 @@
+---
+import { checkIcon, xIcon, pricingPlans } from "../data/pricing";
+---
+
+<section class="pricing" id="precios">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Planes</div>
+      <h2>Precios transparentes para clubs de cualquier tamaño</h2>
+      <p>Empieza gratis durante 21 días. Sin contratos de permanencia. Paga en pesos colombianos con Wompi.</p>
+    </div>
+    <div class="pricing-toggle reveal">
+      <button class="active" id="monthlyBtn">Mensual</button>
+      <button id="annualBtn">Anual</button>
+      <span class="savings">Ahorra 2 meses</span>
+    </div>
+    <div class="pricing-grid" id="pricingGrid">
+      {pricingPlans.map((plan) => (
+        <div class={`pricing-card${plan.popular ? ' popular' : ''} reveal${plan.delay ? ` reveal-delay-${plan.delay}` : ''}`}>
+          {plan.popular && <span class="popular-badge">Más popular</span>}
+          <h3>{plan.name}</h3>
+          <p class="description">{plan.description}</p>
+          <div class="pricing-price">
+            {plan.customPrice ? (
+              <span class="custom">{plan.customPrice}</span>
+            ) : (
+              <span class="amount" data-monthly={plan.monthly} data-annual={plan.annual}>${plan.monthly}</span>
+            )}
+            {plan.period && <span class="period">{plan.period}</span>}
+          </div>
+          <ul class="pricing-features">
+            {plan.features.map((feature) => (
+              <li class:list={{ unavailable: !feature.available }} set:html={`${feature.available ? checkIcon : xIcon} ${feature.text}`} />
+            ))}
+          </ul>
+          <a href="#" class={plan.ctaClass} data-cta-whatsapp>{plan.cta}</a>
+        </div>
+      ))}
+    </div>
+    <p class="pricing-note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 16v-4"/>
+        <path d="M12 8h.01"/>
+      </svg>
+      Paga fácil y seguro con tarjeta, PSE, Nequi o Efecty. Recibes factura electrónica válida ante la DIAN con cada pago. Sin cláusulas de permanencia.
+    </p>
+  </div>
+</section>

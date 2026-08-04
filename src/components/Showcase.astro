@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets";
+import sosImg from "../assets/screenshots/sos.webp";
+import eventosImg from "../assets/screenshots/eventos.webp";
+import panelAdminImg from "../assets/screenshots/panel_admin.webp";
+
+const checkIcon =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+---
+
+<section class="showcase" id="showcase">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Experiencia</div>
+      <h2>La app que tu manada necesita, con el panel que tú necesitas</h2>
+      <p>Los pilotos usan la app móvil. Los administradores usan el panel web. Todo está conectado para que tu club funcione como un reloj.</p>
+    </div>
+    <div class="showcase-item reveal">
+      <div class="showcase-content">
+        <h3>SOS en segundos, no en minutos</h3>
+        <p>En una emergencia, cada segundo cuenta. BikerOS envía tu ubicación GPS exacta, tipo de sangre, alergias y contacto de emergencia a toda la manada, con un solo toque.</p>
+        <ul class="showcase-list">
+          <li set:html={`${checkIcon} 6 tipos de emergencia predefinidos`} />
+          <li set:html={`${checkIcon} Ubicación GPS en tiempo real`} />
+          <li set:html={`${checkIcon} Historial de alertas activas y resueltas`} />
+        </ul>
+      </div>
+      <div class="showcase-visual">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <Image src={sosImg} alt="Pantalla de emergencia SOS en BikerOS" class="active" loading="lazy" />
+          </div>
+        </div>
+        <div class="showcase-badge danger">
+          <h5>Alerta activa</h5>
+          <p>Daniela G. · Sin gasolina</p>
+        </div>
+      </div>
+    </div>
+    <div class="showcase-item reverse reveal">
+      <div class="showcase-content">
+        <h3>Todas las rodadas, organizadas</h3>
+        <p>Olvídate de los "¿a qué hora salimos?" y los "¿quién va a la barredora?". Crea eventos con punto de encuentro, dificultad, RSVP, roles y asistentes confirmados.</p>
+        <ul class="showcase-list">
+          <li set:html={`${checkIcon} Calendario de rodadas con filtros`} />
+          <li set:html={`${checkIcon} RSVP con roles: líder, sweep, rider`} />
+          <li set:html={`${checkIcon} Checklist e inventario de rodada`} />
+        </ul>
+      </div>
+      <div class="showcase-visual">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <Image src={eventosImg} alt="Lista de rodadas en BikerOS" class="active" loading="lazy" />
+          </div>
+        </div>
+        <div class="showcase-badge cyan">
+          <h5>Próxima rodada</h5>
+          <p>Volcán del Totumo · 5 asistentes</p>
+        </div>
+      </div>
+    </div>
+    <div class="showcase-item reveal">
+      <div class="showcase-content">
+        <h3>Panel web para administradores</h3>
+        <p>Gestiona miembros, rutas, eventos, puntos de apoyo y suscripciones desde una interfaz profesional. Toma decisiones con datos reales.</p>
+        <ul class="showcase-list">
+          <li set:html={`${checkIcon} Panel con las cifras de tu club`} />
+          <li set:html={`${checkIcon} Crea rutas con paradas en el mapa`} />
+          <li set:html={`${checkIcon} Pagos y facturación sin enredos`} />
+        </ul>
+      </div>
+      <div class="showcase-visual">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <Image src={panelAdminImg} alt="Dashboard de BikerOS" class="active" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

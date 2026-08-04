@@ -1,0 +1,149 @@
+---
+import "../styles/base.css";
+import "../styles/nav.css";
+import "../styles/hero.css";
+import "../styles/marquee.css";
+import "../styles/stats.css";
+import "../styles/problem.css";
+import "../styles/features.css";
+import "../styles/showcase.css";
+import "../styles/how.css";
+import "../styles/pricing.css";
+import "../styles/security.css";
+import "../styles/faq.css";
+import "../styles/cta.css";
+import "../styles/footer.css";
+import "@fontsource/exo-2/400.css";
+import "@fontsource/exo-2/500.css";
+import "@fontsource/exo-2/600.css";
+import "@fontsource/exo-2/700.css";
+import "@fontsource/exo-2/800.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import { faqItems } from "../data/faq";
+import heroImage from "../assets/screenshots/home.webp";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BikerOS — El sistema operativo para clubes de motos en Colombia</title>
+  <meta name="description" content="BikerOS es la plataforma SaaS para clubs de motos en Colombia. Organiza rodadas, rastrea a tu manada en tiempo real y responde a emergencias SOS con un solo toque.">
+  <meta name="author" content="Zekrost">
+  <meta name="theme-color" content="#111827">
+  <link rel="canonical" href="https://biker-os.zekrost.com">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/ico/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/ico/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/ico/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/ico/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/ico/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/ico/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/ico/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/ico/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/ico/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/ico/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ico/favicon-16x16.png">
+  <link rel="manifest" href="/ico/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ico/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BikerOS">
+  <meta property="og:title" content="BikerOS — El sistema operativo para clubes de motos en Colombia">
+  <meta property="og:description" content="Organiza rodadas, rastrea a tu manada con GPS en vivo y responde a emergencias SOS. Todo tu club en una sola plataforma.">
+  <meta property="og:url" content="https://biker-os.zekrost.com">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:image" content="https://biker-os.zekrost.com/images/BikerOS_Imagotipo_Negativo.webp">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BikerOS — El sistema operativo para clubes de motos en Colombia">
+  <meta name="twitter:description" content="Organiza rodadas, rastrea a tu manada con GPS en vivo y responde a emergencias SOS.">
+  <meta name="twitter:image" content="https://biker-os.zekrost.com/images/BikerOS_Imagotipo_Negativo.webp">
+
+  <link rel="preload" as="image" href={heroImage.src} fetchpriority="high" />
+
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "BikerOS",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web, iOS, Android",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "COP",
+      "description": "Plan de prueba gratuito de 21 días"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zekrost",
+      "url": "https://zekrost.com",
+      "email": "contacto@zekrost.com"
+    },
+    "description": "Plataforma SaaS multi-club para gestión de rodadas, tracking GPS en vivo y emergencias SOS para clubs de motociclismo en Colombia.",
+    "inLanguage": "es-CO",
+    "url": "https://biker-os.zekrost.com"
+  }
+  </script>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+</head>
+
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <noscript>
+    <style>
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .hero-visual .phone-screen img {
+        opacity: 1 !important;
+      }
+      .hero-visual .phone-screen img:not(:first-child) {
+        display: none;
+      }
+    </style>
+  </noscript>
+
+  <slot />
+
+  <script>
+  import "../scripts/whatsapp.js";
+  import "../scripts/scroll-progress.js";
+  import "../scripts/sticky-nav.js";
+  import "../scripts/mobile-menu.js";
+  import "../scripts/reveal.js";
+  import "../scripts/counters.js";
+  import "../scripts/carousel.js";
+  import "../scripts/tilt.js";
+  import "../scripts/pricing.js";
+  import "../scripts/faq.js";
+  import "../scripts/active-nav.js";
+  </script>
+</body>
+</html>
+
