@@ -1,8 +1,12 @@
-  <nav class="nav" id="nav">
-    <div class="container">
-      <a href="#" class="nav-logo" aria-label="BikerOS inicio">
-        <img src="/images/BikerOS_Imagotipo_Negativo.webp" alt="BikerOS" height="48" />
-      </a>
+---
+const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
+---
+
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="/" class="nav-logo" aria-label="BikerOS inicio">
+      <img src="/images/BikerOS_Imagotipo_Negativo.webp" alt="BikerOS" height="48" />
+    </a>
       <div class="nav-links">
         <a href="#funcionalidades">Funcionalidades</a>
         <a href="#como-funciona">Cómo funciona</a>
@@ -11,14 +15,14 @@
       </div>
       <div class="nav-cta">
         <a href="#precios" class="btn btn-ghost">Ver planes</a>
-        <a href="#" class="btn btn-primary btn-whatsapp" data-cta-whatsapp>
+        <a href={WHATSAPP_URL} class="btn btn-primary btn-whatsapp" data-cta-whatsapp>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/>
             <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z"/>
             <path d="M14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z"/>
             <path d="M9.5 13.5c.5 1 1.5 1.5 2.5 1.5s2-.5 2.5-1.5"/>
           </svg>
-          Crear mi club
+          <span>Crear mi club</span>
         </a>
         <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
           <span></span>

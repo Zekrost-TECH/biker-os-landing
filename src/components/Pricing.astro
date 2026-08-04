@@ -1,5 +1,7 @@
 ---
 import { checkIcon, xIcon, pricingPlans } from "../data/pricing";
+
+const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=573046701922";
 ---
 
 <section class="pricing" id="precios">
@@ -33,7 +35,7 @@ import { checkIcon, xIcon, pricingPlans } from "../data/pricing";
               <li class:list={{ unavailable: !feature.available }} set:html={`${feature.available ? checkIcon : xIcon} ${feature.text}`} />
             ))}
           </ul>
-          <a href="#" class={plan.ctaClass} data-cta-whatsapp>{plan.cta}</a>
+          <a href={WHATSAPP_URL} class={plan.ctaClass} data-cta-whatsapp>{plan.cta}</a>
         </div>
       ))}
     </div>

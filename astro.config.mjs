@@ -3,5 +3,12 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://biker-os.zekrost.com',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      serialize(item) {
+        item.lastmod = '2026-08-03';
+        return item;
+      },
+    }),
+  ],
 });

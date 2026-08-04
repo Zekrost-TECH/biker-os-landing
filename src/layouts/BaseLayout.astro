@@ -74,12 +74,15 @@ const faqSchema = {
   <meta property="og:description" content="Organiza rodadas, rastrea a tu manada con GPS en vivo y responde a emergencias SOS. Todo tu club en una sola plataforma.">
   <meta property="og:url" content="https://biker-os.zekrost.com">
   <meta property="og:locale" content="es_CO">
-  <meta property="og:image" content="https://biker-os.zekrost.com/images/BikerOS_Imagotipo_Negativo.webp">
+  <meta property="og:image" content="https://biker-os.zekrost.com/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="BikerOS — El sistema operativo para clubes de motos en Colombia">
   <meta name="twitter:description" content="Organiza rodadas, rastrea a tu manada con GPS en vivo y responde a emergencias SOS.">
-  <meta name="twitter:image" content="https://biker-os.zekrost.com/images/BikerOS_Imagotipo_Negativo.webp">
+  <meta name="twitter:image" content="https://biker-os.zekrost.com/images/og-image.png">
 
   <link rel="preload" as="image" href={heroImage.src} fetchpriority="high" />
 
@@ -109,6 +112,38 @@ const faqSchema = {
   </script>
 
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Zekrost",
+    "url": "https://zekrost.com",
+    "logo": "https://biker-os.zekrost.com/images/BikerOS_Imagotipo_Negativo.webp",
+    "email": "contacto@zekrost.com",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "contacto@zekrost.com",
+      "contactType": "customer support",
+      "availableLanguage": "Spanish"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "BikerOS",
+    "url": "https://biker-os.zekrost.com",
+    "inLanguage": "es-CO",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zekrost",
+      "url": "https://zekrost.com"
+    }
+  }
+  </script>
 </head>
 
 <body>
@@ -143,6 +178,8 @@ const faqSchema = {
   import "../scripts/pricing.js";
   import "../scripts/faq.js";
   import "../scripts/active-nav.js";
+  import { injectSpeedInsights } from "@vercel/speed-insights";
+  injectSpeedInsights();
   </script>
 </body>
 </html>
