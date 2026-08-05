@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://biker-os.zekrost.com/sitemap-index.xml
+Sitemap: https://bikeros.co/sitemap-index.xml
