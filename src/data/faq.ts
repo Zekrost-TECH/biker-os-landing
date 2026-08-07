@@ -12,7 +12,7 @@ export const faqItems: FaqItem[] = [
   {
     question: '¿Cómo puedo pagar BikerOS?',
     answer:
-      'Pagas en pesos colombianos con los medios que ya usas: tarjeta de crédito o débito, PSE, Nequi, Bancolombia a la mano y Efecty. Rápido, seguro y sin vueltas.',
+      'Después de la prueba de 21 días, eliges un plan y pagas en pesos colombianos desde el panel de administración con tarjeta de crédito o débito, Nequi o PSE. Tu suscripción se renueva automáticamente y puedes cancelar cuando quieras.',
   },
   {
     question: '¿Puedo cancelar mi suscripción cuando quiera?',

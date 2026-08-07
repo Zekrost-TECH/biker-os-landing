@@ -20,6 +20,8 @@ export interface PricingPlan {
   features: PricingFeature[];
   cta: string;
   ctaClass: string;
+  /** true → enlace a /crear-club (self-service); false → WhatsApp (venta consultiva) */
+  selfService: boolean;
 }
 
 export const pricingPlans: PricingPlan[] = [
@@ -39,6 +41,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     cta: 'Empezar gratis',
     ctaClass: 'btn btn-secondary',
+    selfService: true,
   },
   {
     name: 'Esencial',
@@ -56,6 +59,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     cta: 'Elegir Esencial',
     ctaClass: 'btn btn-secondary',
+    selfService: true,
   },
   {
     name: 'Básico',
@@ -74,7 +78,8 @@ export const pricingPlans: PricingPlan[] = [
       { text: 'Mantenimiento de motos y alertas', available: true },
     ],
     cta: 'Elegir Básico',
-    ctaClass: 'btn btn-primary btn-whatsapp',
+    ctaClass: 'btn btn-primary',
+    selfService: true,
   },
   {
     name: 'Pro',
@@ -93,6 +98,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     cta: 'Elegir Pro',
     ctaClass: 'btn btn-secondary',
+    selfService: true,
   },
   {
     name: 'Empresarial',
@@ -111,6 +117,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     cta: 'Elegir Empresarial',
     ctaClass: 'btn btn-secondary',
+    selfService: false,
   },
   {
     name: 'Elite',
@@ -128,6 +135,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     cta: 'Hablar con ventas',
     ctaClass: 'btn btn-primary',
+    selfService: false,
   },
 ];
 
