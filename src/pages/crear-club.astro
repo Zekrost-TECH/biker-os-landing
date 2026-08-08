@@ -73,29 +73,33 @@ const benefits = [
           <h2>Crear mi club</h2>
           <p class="signup-sub">Completa tus datos y quédate listo para la primera rodada.</p>
 
-          <div class="form-group">
+          <div class="form-group" data-field="clubName">
             <label for="clubName">Nombre del club</label>
             <input type="text" id="clubName" name="clubName" placeholder="Ej: Iron Biker's Cartagena" autocomplete="organization" />
+            <p class="field-error" id="err-clubName" hidden></p>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" data-field="city">
             <label for="city">Ciudad <span class="optional">(opcional)</span></label>
             <input type="text" id="city" name="city" placeholder="Ej: Cartagena" maxlength="100" autocomplete="address-level2" />
           </div>
 
-          <div class="form-group">
+          <div class="form-group" data-field="adminName">
             <label for="adminName">Tu nombre</label>
             <input type="text" id="adminName" name="adminName" placeholder="Ej: Carlos Herrera" autocomplete="name" />
+            <p class="field-error" id="err-adminName" hidden></p>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" data-field="email">
             <label for="email">Email del administrador</label>
             <input type="email" id="email" name="email" placeholder="capitan@club.co" autocomplete="email" />
+            <p class="field-error" id="err-email" hidden></p>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" data-field="password">
             <label for="password">Contraseña</label>
             <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" />
+            <p class="field-error" id="err-password" hidden></p>
           </div>
 
           {turnstileSiteKey && (
@@ -146,65 +150,130 @@ const benefits = [
 
   let turnstileToken: string | null = null;
 
-  function showError(message: string) {
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  // ── Validación por campo ──────────────────────────────────────────────
+  type FieldDef = {
+    id: string;
+    errorId: string;
+    validators: ((value: string) => string | null)[];
+  };
+
+  const fields: FieldDef[] = [
+    {
+      id: "clubName",
+      errorId: "err-clubName",
+      validators: [
+        (v) => (v.trim().length === 0 ? "Escribe el nombre de tu club." : null),
+        (v) => (v.trim().length < 3 ? "El nombre del club debe tener al menos 3 caracteres." : null),
+        (v) => (v.trim().length > 80 ? "El nombre no puede superar 80 caracteres." : null),
+      ],
+    },
+    {
+      id: "adminName",
+      errorId: "err-adminName",
+      validators: [
+        (v) => (v.trim().length === 0 ? "Escribe tu nombre." : null),
+        (v) => (v.trim().length < 2 ? "El nombre debe tener al menos 2 caracteres." : null),
+        (v) => (v.trim().length > 120 ? "El nombre no puede superar 120 caracteres." : null),
+      ],
+    },
+    {
+      id: "email",
+      errorId: "err-email",
+      validators: [
+        (v) => (v.trim().length === 0 ? "Escribe tu correo electrónico." : null),
+        (v) => (!EMAIL_RE.test(v.trim()) ? "El correo no es válido (ej: capitan@club.co)." : null),
+        (v) => (v.trim().length > 200 ? "El correo no puede superar 200 caracteres." : null),
+      ],
+    },
+    {
+      id: "password",
+      errorId: "err-password",
+      validators: [
+        (v) => (v.length === 0 ? "Escribe una contraseña." : null),
+        (v) => (v.length < 8 ? "La contraseña debe tener al menos 8 caracteres." : null),
+        (v) => (v.length > 128 ? "La contraseña no puede superar 128 caracteres." : null),
+      ],
+    },
+  ];
+
+  // ciudad: opcional, sin validación
+
+  function validateField(def: FieldDef, show: boolean): string | null {
+    const input = document.getElementById(def.id) as HTMLInputElement;
+    const errorEl = document.getElementById(def.errorId) as HTMLParagraphElement;
+    const group = input.closest(".form-group") as HTMLElement;
+    const error = def.validators.map((fn) => fn(input.value)).find((e) => e !== null) ?? null;
+
+    if (error && show) {
+      errorEl.textContent = error;
+      errorEl.hidden = false;
+      group.classList.add("has-error");
+    } else {
+      errorEl.hidden = true;
+      group.classList.remove("has-error");
+    }
+    return error;
+  }
+
+  function validateAll(show: boolean): boolean {
+    return fields.every((def) => validateField(def, show) === null);
+  }
+
+  function isFormValid(): boolean {
+    const fieldsOk = validateAll(false);
+    const turnstileOk = !turnstileSiteKey || turnstileToken !== null;
+    return fieldsOk && turnstileOk;
+  }
+
+  function updateSubmitState() {
+    const btn = document.getElementById("submitBtn") as HTMLButtonElement;
+    btn.disabled = !isFormValid();
+  }
+
+  function showServerError(message: string) {
     const el = document.getElementById("formError");
     if (!el) return;
     el.textContent = message;
     el.hidden = false;
   }
 
-  function clearError() {
+  function clearServerError() {
     const el = document.getElementById("formError");
     if (el) el.hidden = true;
   }
 
-  async function submit() {
+  function setSubmitting(submitting: boolean) {
     const btn = document.getElementById("submitBtn") as HTMLButtonElement;
+    btn.disabled = submitting;
+    btn.textContent = submitting ? "Creando tu club..." : "Crear mi club gratis";
+  }
+
+  async function submit() {
+    clearServerError();
+
+    // Validar todo mostrando los errores; enfocar el primero inválido
+    let firstInvalid: string | null = null;
+    for (const def of fields) {
+      if (validateField(def, true) !== null && !firstInvalid) firstInvalid = def.id;
+    }
+    if (firstInvalid) {
+      (document.getElementById(firstInvalid) as HTMLInputElement).focus();
+      return;
+    }
+    if (turnstileSiteKey && !turnstileToken) {
+      showServerError("Completa la verificación de seguridad antes de continuar.");
+      return;
+    }
+
     const clubName = (document.getElementById("clubName") as HTMLInputElement).value.trim();
     const city = (document.getElementById("city") as HTMLInputElement).value.trim();
     const adminName = (document.getElementById("adminName") as HTMLInputElement).value.trim();
     const email = (document.getElementById("email") as HTMLInputElement).value.trim();
     const password = (document.getElementById("password") as HTMLInputElement).value;
 
-    clearError();
-
-    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-    if (!clubName || clubName.length < 3) {
-      showError("El nombre del club debe tener al menos 3 caracteres.");
-      return;
-    }
-    if (clubName.length > 80) {
-      showError("El nombre del club no puede superar 80 caracteres.");
-      return;
-    }
-    if (!adminName || adminName.length < 2) {
-      showError("Escribe tu nombre (mínimo 2 caracteres).");
-      return;
-    }
-    if (!email || !EMAIL_RE.test(email)) {
-      showError("Escribe un correo electrónico válido.");
-      return;
-    }
-    if (email.length > 200) {
-      showError("El correo no puede superar 200 caracteres.");
-      return;
-    }
-    if (!password || password.length < 8) {
-      showError("La contraseña debe tener al menos 8 caracteres.");
-      return;
-    }
-    if (password.length > 128) {
-      showError("La contraseña no puede superar 128 caracteres.");
-      return;
-    }
-    if (turnstileSiteKey && !turnstileToken) {
-      showError("Completa la verificación de seguridad antes de continuar.");
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = "Creando tu club...";
+    setSubmitting(true);
 
     try {
       const registerRes = await fetch(`${apiUrl}/auth/register`, {
@@ -223,9 +292,9 @@ const benefits = [
           registerBody.statusCode === 409 || registerBody.message === "Ya existe una cuenta con este correo"
             ? "Ya existe una cuenta con este correo. Inicia sesión o usa otro."
             : registerBody.message || "No se pudo crear tu cuenta. Intenta de nuevo.";
-        showError(msg);
-        btn.disabled = false;
-        btn.textContent = "Crear mi club gratis";
+        showServerError(msg);
+        setSubmitting(false);
+        updateSubmitState();
         return;
       }
 
@@ -245,27 +314,50 @@ const benefits = [
           clubBody.statusCode === 403
             ? "Ya tienes un club creado. Cada usuario administra un solo club."
             : clubBody.message || "No se pudo crear el club. Intenta de nuevo.";
-        showError(msg);
-        btn.disabled = false;
-        btn.textContent = "Crear mi club gratis";
+        showServerError(msg);
+        setSubmitting(false);
+        updateSubmitState();
         return;
       }
 
       window.location.href = `${adminUrl}/login?welcome=1`;
     } catch {
-      showError("Hubo un problema de conexión. Intenta de nuevo.");
-      btn.disabled = false;
-      btn.textContent = "Crear mi club gratis";
+      showServerError("Hubo un problema de conexión. Intenta de nuevo.");
+      setSubmitting(false);
+      updateSubmitState();
     }
   }
 
   window.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("signupForm");
     if (!form) return;
+
+    // Validación en blur (primera visita al campo) y en vivo tras el primer error
+    for (const def of fields) {
+      const input = document.getElementById(def.id) as HTMLInputElement;
+      input.addEventListener("blur", () => {
+        validateField(def, true);
+        updateSubmitState();
+      });
+      input.addEventListener("input", () => {
+        const group = input.closest(".form-group") as HTMLElement;
+        if (group.classList.contains("has-error")) {
+          validateField(def, true);
+        } else {
+          validateField(def, false);
+        }
+        updateSubmitState();
+      });
+    }
+    const cityInput = document.getElementById("city") as HTMLInputElement;
+    if (cityInput) cityInput.addEventListener("input", () => updateSubmitState());
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       void submit();
     });
+
+    updateSubmitState();
 
     if (turnstileSiteKey) {
       const renderTurnstile = () => {
@@ -276,15 +368,16 @@ const benefits = [
           theme: "dark",
           callback: (token: string) => {
             turnstileToken = token;
-            clearError();
-            const btn = document.getElementById("submitBtn") as HTMLButtonElement;
-            btn.disabled = false;
+            clearServerError();
+            updateSubmitState();
           },
           "expired-callback": () => {
             turnstileToken = null;
+            updateSubmitState();
           },
           "error-callback": () => {
             turnstileToken = null;
+            updateSubmitState();
           },
         });
       };
@@ -293,8 +386,6 @@ const benefits = [
       script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad";
       (window as any).onTurnstileLoad = renderTurnstile;
       document.head.appendChild(script);
-    } else {
-      (document.getElementById("submitBtn") as HTMLButtonElement).disabled = false;
     }
   });
 </script>
